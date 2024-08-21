@@ -1,4 +1,4 @@
-package retriever
+package cstr
 
 import (
 	"fmt"
