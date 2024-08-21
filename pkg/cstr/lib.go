@@ -2,26 +2,14 @@ package cstr
 
 import (
 	"fmt"
-	"net/smtp"
 	"strings"
 
 	uuid "git.cmcode.dev/cmcode/uuid"
 )
 
-// SendEmail sends an email to the desired recipient.
-func SendEmail(to []string, subject, body string, from string, password string, smtpServer string, smtpPort string) error {
-	auth := smtp.PlainAuth("", from, password, smtpServer)
-
-	addr := fmt.Sprintf("%v:%v", smtpServer, smtpPort)
-
-	msg := fmt.Sprintf("To: %v\r\nSubject: %v\r\n\r\n%v", to, subject, body)
-
-	err := smtp.SendMail(addr, auth, from, to, []byte(msg))
-	if err != nil {
-		return err
-	}
-
-	return nil
+type Config struct {
+	// Connection string for the Castopod mariadb database.
+	SQLConnectionString string `json:"sqlConnectionString"`
 }
 
 // NewUUID returns a double uuid with the hyphens removed, leading to a
