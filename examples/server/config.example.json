@@ -1,0 +1,13 @@
+{
+    "sqlConnectionString": "castopod-sql-username:castopod-sql-password@tcp(127.0.0.1:3306)/castopod-db",
+    "castopodBaseUrl": "https://podcast.example.com",
+    "smtp": {
+        "server": "smtp.site.com",
+        "addr": "smtp.site.com:587",
+        "password": "smtp-password",
+        "testing": true
+    },
+    "emailFrom": "castopod@mg.example.com",
+    "baseUrlRoute": "/podcast-access",
+    "url": "https://podcast.example.com/podcast-access"
+}
