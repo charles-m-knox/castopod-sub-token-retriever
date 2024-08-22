@@ -73,7 +73,7 @@ type CastopodSubscription struct {
 //	rows, err := stmt.Query(val1, val2, val3)
 
 // Use this as part of a parameterized db statement/query.
-const CASTOPOD_SUBSCRIPTIONS_QUERY = "SELECT podcast.id as podcast_id, sub.id as sub_idl, podcast.handle, sub.email, sub.status FROM cp_subscriptions AS sub INNER JOIN cp_podcasts AS podcast ON podcast.id = sub.podcast_id" // WHERE sub.status = '" + castopod.CastopodStatusActive + "' AND sub.email = "
+const CASTOPOD_SUBSCRIPTIONS_QUERY = "SELECT podcast.id as podcast_id, sub.id as sub_idl, podcast.handle, sub.email, sub.status FROM cp_subscriptions AS sub INNER JOIN cp_podcasts AS podcast ON podcast.id = sub.podcast_id"
 
 // GetNewTokenSQL returns the SQL statement that will update the database with
 // a new token, provided you've already generated it.
