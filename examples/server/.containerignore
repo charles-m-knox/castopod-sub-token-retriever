@@ -1,0 +1,6 @@
+/.containerignore
+/.gitignore
+/config*.json
+/containerfile
+/README.md
+/server

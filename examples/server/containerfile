@@ -1,0 +1,23 @@
+# FROM docker.io/library/golang:alpine AS builder
+FROM quay.io/archlinux/archlinux:latest AS builder
+ARG GOPROXY
+ARG GOSUMDB
+
+RUN pacman -Syu --noconfirm upx git go
+# switch to this when golang:alpine support is available for go 1.23.x:
+# RUN apk add upx git
+
+WORKDIR /site
+COPY go.mod /site
+RUN go mod download
+
+COPY . /site
+
+WORKDIR /site
+RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -v -o app-uncompressed -ldflags="-w -s -buildid=" -trimpath
+RUN upx --best -o ./app app-uncompressed
+
+FROM docker.io/library/alpine:latest
+COPY --from=builder /site/app /app
+
+ENTRYPOINT ["/app"]
