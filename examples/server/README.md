@@ -31,7 +31,7 @@ Once it's up and running, proceed to test with `curl`:
 
 ```bash
 # step 1: this will send a verification code to the user's email address
-curl -v -sSL  -k 'http://127.0.0.1:19281/podcast-access/token?email=user@example.com&handle=podcast-handle'
+curl -X POST -v -sSL  -k 'http://127.0.0.1:19281/podcast-access/token?email=user@example.com&handle=podcast-handle'
 
 # step 2: the user will receive a link in their email that looks like this:
 curl -v -sSL  -k 'http://127.0.0.1:19281/podcast-access/token?email=user@example.com&handle=podcast-handle&code=fCmWlgCDJqvwU6Zz'

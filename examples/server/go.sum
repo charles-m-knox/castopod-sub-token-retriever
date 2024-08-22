@@ -4,5 +4,7 @@ git.cmcode.dev/cmcode/castopod-sub-token-retriever v0.0.1 h1:gj5ch54ZFoAna5kdUUJ
 git.cmcode.dev/cmcode/castopod-sub-token-retriever v0.0.1/go.mod h1:PnAuj3xeOTyZWzreBr3odja+6iVCJMxIV3VL9jzE+PI=
 git.cmcode.dev/cmcode/go-castopod v0.0.3 h1:VBh5bGN0U2H1A9GemKnJQeeBlj3bGWaMBzzhrQWH7Xw=
 git.cmcode.dev/cmcode/go-castopod v0.0.3/go.mod h1:P2iXkm5tAmjtLEKQLoj751xtsKMSupe8gRE9nXf5EpE=
+git.cmcode.dev/cmcode/go-castopod v0.0.4 h1:KGCtvDNcPMVYmTlUXtaC1stsgYRB4kqjZoEtc4xot0U=
+git.cmcode.dev/cmcode/go-castopod v0.0.4/go.mod h1:P2iXkm5tAmjtLEKQLoj751xtsKMSupe8gRE9nXf5EpE=
 github.com/go-sql-driver/mysql v1.8.1 h1:LedoTUt/eveggdHS9qUFC1EFSa8bU2+1pZjSRpvNJ1Y=
 github.com/go-sql-driver/mysql v1.8.1/go.mod h1:wEBSXgmK//2ZFJyE+qWnIsVGmvmEKlqwuVSjsCm7DZg=

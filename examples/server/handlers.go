@@ -1,8 +1,10 @@
 package main
 
 import (
+	"crypto/rand"
 	"fmt"
 	"log"
+	"math/big"
 	"net/http"
 	"sync"
 	"time"
@@ -89,13 +91,37 @@ func clearCodes() {
 	}
 }
 
-const genericResponse = "If this email address is valid, an email containing a new podcast URL will be sent shortly."
+const genericResponse = "If this email address is valid, an email containing instructions will be sent shortly."
 
 var genericResponseB = []byte(genericResponse)
+
+// Sleeps a minimum of 100ms plus, at most, 299ms more.
+func sleepRandomMS() {
+	ms, err := rand.Int(rand.Reader, big.NewInt(300))
+	if err != nil {
+		time.Sleep(300 * time.Millisecond)
+		return
+	}
+	time.Sleep(time.Duration(ms.Int64()+100) * time.Millisecond)
+}
 
 // getNewToken queries the database to find the given email, resets the token
 // stored in the database, then emails the new token to the user.
 func getNewToken(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	if r.Method != http.MethodPost && r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusBadRequest)
+		_, err := w.Write([]byte("Route only accepts HTTP POST or GET requests"))
+		if err != nil {
+			log.Printf("failed to write nil db error: %v", err.Error())
+		}
+		return
+	}
+
 	if DB == nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte("Unable to reach backend"))
@@ -167,6 +193,8 @@ func getNewToken(w http.ResponseWriter, r *http.Request) {
 	if lcs == 0 {
 		log.Printf("email=%v, handle=%v returned no results", email, handle)
 
+		sleepRandomMS()
+
 		w.WriteHeader(http.StatusOK)
 		_, err := w.Write(genericResponseB)
 		if err != nil {
@@ -203,31 +231,36 @@ func getNewToken(w http.ResponseWriter, r *http.Request) {
 
 		log.Printf("sending reset request email to %v", email)
 
-		// send an email to ask the user to verify the code
-		err = conf.SMTP.SendEmail(
-			[]string{email},
-			"Podcast Feed Reset Request",
-			fmt.Sprintf(
-				"Please use the following link to reset your podcast feed.\r\n\r\n%v?email=%v&handle=%v&code=%v\r\n\r\nOnce you visit the above URL, an email will be sent shortly after with your new feed URL.",
-				conf.URL,
-				email,
-				handle,
-				newCode,
-			),
-			conf.EmailFrom,
-		)
-		if err != nil {
-			log.Printf("failed to send email: %v", err.Error())
-			w.WriteHeader(http.StatusInternalServerError)
-			_, err := w.Write([]byte("Failed to send an email to the provided address. Please try later or contact support."))
+		// send an email to ask the user to verify the code - do this on a
+		// goroutine so that it doesn't impact http request response time
+		go func() {
+			err = conf.SMTP.SendEmail(
+				[]string{email},
+				"Podcast Feed Reset Request",
+				fmt.Sprintf(
+					"Please use the following link to reset your podcast feed.\r\n\r\n%v?email=%v&handle=%v&code=%v\r\n\r\nOnce you visit the above URL, an email will be sent shortly after with your new feed URL.",
+					conf.URL,
+					email,
+					handle,
+					newCode,
+				),
+				conf.EmailFrom,
+			)
 			if err != nil {
+				// log.Printf("failed to send email: %v", err.Error())
+				// w.WriteHeader(http.StatusInternalServerError)
+				// _, err := w.Write([]byte("Failed to send an email to the provided address. Please try later or contact support."))
+				// if err != nil {
 				log.Printf("failed to send email with reset URL to %v, error: %v", email, err.Error())
-			}
+				// }
 
-			return
-		}
+				return
+			}
+		}()
 
 		log.Printf("sent reset request email to %v", email)
+
+		sleepRandomMS()
 
 		w.WriteHeader(http.StatusOK)
 		_, err = w.Write(genericResponseB)

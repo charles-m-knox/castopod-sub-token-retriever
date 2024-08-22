@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	git.cmcode.dev/cmcode/castopod-sub-token-retriever v0.0.1
-	git.cmcode.dev/cmcode/go-castopod v0.0.3
+	git.cmcode.dev/cmcode/go-castopod v0.0.4
 	github.com/go-sql-driver/mysql v1.8.1
 )
 

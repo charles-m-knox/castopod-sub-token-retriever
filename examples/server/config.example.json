@@ -9,5 +9,5 @@
     },
     "emailFrom": "castopod@mg.example.com",
     "baseUrlRoute": "/podcast-access",
-    "url": "https://podcast.example.com/podcast-access"
+    "url": "https://podcast.example.com/podcast-access/token"
 }

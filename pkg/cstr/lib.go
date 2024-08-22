@@ -33,11 +33,6 @@ type Config struct {
 	// 	`https://example.com/podcast-reset/token`
 	// 	`https://castopod-reset.example.com/token`
 	URL string `json:"url"`
-
-	// When the reset workflow finishes, this text will be shown to the user
-	// and they will be instructed to click this URL to back to the home
-	// page of your organization, for example.
-	// RedirectURL string `json:"redirectUrl"`
 }
 
 // CastopodSubscription is a struct that (mostly) mirrors the SQL database's
