@@ -7,7 +7,7 @@ This example connects to a Castopod mariadb database, and performs the necessary
 Start by cloning the repository:
 
 ```bash
-git clone https://git.cmcode.dev/cmcode/castopod-sub-token-retriever.git
+git clone https://github.com/charles-m-knox/castopod-sub-token-retriever.git
 cd examples/server
 cp config.example.json config.json
 ```
@@ -60,7 +60,7 @@ You must first create a `config.json` just like above, and ensure that the outpu
 ```bash
 podman run --rm -it \
     -v "$(pwd)/config.json:/config.json:ro" \
-    git.cmcode.dev/cmcode/castopod-sub-token-retriever:server-mariadb
+    ghcr.io/charles-m-knox/castopod-sub-token-retriever:server-mariadb
 ```
 
 Note: If you're using an SSH port forwarding mechanism for the mariadb database connection, you may want to consider adding `--network host` to the above `podman run` command.
@@ -75,5 +75,5 @@ podman build \
     --build-arg GOSUMDB="${GOSUMDB}" \
     --build-arg GOPROXY="${GOPROXY}" \
     -f containerfile \
-    -t git.cmcode.dev/cmcode/castopod-sub-token-retriever:server-mariadb .
+    -t ghcr.io/charles-m-knox/castopod-sub-token-retriever:server-mariadb .
 ```

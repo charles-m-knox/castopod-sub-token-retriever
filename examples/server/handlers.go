@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	cstr "git.cmcode.dev/cmcode/castopod-sub-token-retriever/pkg/cstr"
-	castopod "git.cmcode.dev/cmcode/go-castopod/pkg/lib"
+	cstr "github.com/charles-m-knox/castopod-sub-token-retriever/pkg/cstr"
+	castopod "github.com/charles-m-knox/go-castopod/pkg/lib"
 )
 
 type resetCode struct {
@@ -22,7 +22,6 @@ type resetCode struct {
 // this with a sync mutex lock. Email is the key, code is the value.
 var codes map[string]resetCode = map[string]resetCode{}
 
-// Make sure to lock this upon application startup to avoid panics!
 var codesLock sync.Mutex = sync.Mutex{}
 
 // Receives and routes requests.

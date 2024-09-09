@@ -10,16 +10,14 @@ import (
 )
 
 var (
-	flagConfig  string
-	flagTest    bool
-	flagOutFile string
-	flagAddr    string
+	flagConfig string
+	flagTest   bool
+	flagAddr   string
 )
 
 func parseFlags() {
 	flag.StringVar(&flagConfig, "f", "config.json", "json file to use for loading configuration")
 	flag.BoolVar(&flagTest, "test", false, "connect read-only and perform a dry run")
-	flag.StringVar(&flagOutFile, "o", "", "a file to write the database query to (can combine with -test to allow manual editing of the query)")
 	flag.StringVar(&flagAddr, "addr", "0.0.0.0:19281", "the address (host and port) to listen on")
 	flag.Parse()
 }

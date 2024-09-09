@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	cstr "git.cmcode.dev/cmcode/castopod-sub-token-retriever/pkg/cstr"
+	cstr "github.com/charles-m-knox/castopod-sub-token-retriever/pkg/cstr"
 )
 
 var conf cstr.Config
