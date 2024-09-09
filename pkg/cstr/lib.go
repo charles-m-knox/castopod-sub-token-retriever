@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"git.cmcode.dev/cmcode/castopod-sub-token-retriever/pkg/smtp"
+	"github.com/charles-m-knox/castopod-sub-token-retriever/pkg/smtp"
 )
 
 type Config struct {
